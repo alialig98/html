@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A free, offline-friendly HTML classroom editor with live preview, short practice tasks and downloadable web pages.">
+<title>HTML Workshop</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23102c40'/%3E%3Cpath d='m12 10-6 6 6 6m8-12 6 6-6 6' fill='none' stroke='%235ee0ca' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#183449;background:#edf2f6;font-size:16px;--ink:#102c40;--teal:#087968;--line:#cbd6df;--editor-size:16px}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,select{cursor:pointer}button{border:1px solid var(--line);border-radius:7px;background:white;color:var(--ink);padding:9px 13px;font-weight:600;min-height:40px}button:hover{background:#eaf7f4;border-color:#438e82}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid #de831b;outline-offset:3px}button.primary{background:var(--teal);color:white;border-color:var(--teal)}button.primary:hover{background:#056454}button.small{padding:6px 10px;min-height:34px;font-size:.875rem}button:disabled{opacity:.5;cursor:default}a{color:#086857}.skip{position:absolute;top:-100px;left:12px;z-index:10;background:white;padding:10px}.skip:focus{top:12px}
+header{background:var(--ink);color:white;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{font:700 25px monospace;color:#68e4ce;border:1px solid #426072;border-radius:9px;padding:6px 9px}.brand h1{font-size:1.3rem;margin:0;letter-spacing:-.4px}.brand p{color:#c9dce8;margin:4px 0 0;font-size:.875rem}.header-actions{display:flex;gap:8px;flex-wrap:wrap}.header-actions button{background:#213e51;color:white;border-color:#5a7181}.header-actions .primary{background:#6ae1c9;color:#102c40;border-color:#6ae1c9}.toolbar{display:flex;align-items:center;gap:16px;padding:12px 28px;background:white;border-bottom:1px solid var(--line);flex-wrap:wrap}.project{display:flex;align-items:center;gap:9px;font-size:.875rem;font-weight:600}.project input{border:1px solid var(--line);border-radius:5px;padding:8px 10px;width:210px;color:var(--ink)}.status{font-size:.875rem;color:#486174;margin-right:auto}.toolbar label.option{font-size:.875rem;display:flex;align-items:center;gap:6px;white-space:nowrap}input[type=checkbox]{width:18px;height:18px;accent-color:var(--teal)}.size-controls{display:flex;align-items:center;gap:6px}.size-controls span{font-size:.875rem;margin-right:2px}
+.workspace{display:grid;grid-template-columns:248px minmax(0,1fr);gap:20px;padding:22px 28px;max-width:1900px;margin:auto}.sidebar{min-width:0}.eyebrow{font-size:.75rem;letter-spacing:1.8px;font-weight:bold;color:#527085;margin:0 0 12px}.lesson-nav{display:grid;gap:7px}.lesson-button{display:flex;align-items:center;text-align:left;gap:10px;background:transparent;border-color:transparent;font-size:.9375rem;padding:10px}.lesson-button .num{background:white;border:1px solid var(--line);border-radius:6px;width:28px;height:28px;display:grid;place-items:center;flex-shrink:0;font-size:.875rem}.lesson-button[aria-pressed=true]{background:#d9eee9;border-color:#9ccbc0;color:#075e50}.lesson-button[aria-pressed=true] .num{background:var(--teal);color:white;border-color:var(--teal)}.task-card{background:white;border:1px solid var(--line);border-radius:10px;margin-top:20px;padding:18px}.task-card h2{font-size:1.1rem;line-height:1.4;margin:0 0 10px}.task-card p{font-size:.9375rem;line-height:1.6;margin:10px 0}.task-card ol{padding-left:22px;line-height:1.65;font-size:.9375rem}.task-card li{padding-left:3px;margin:9px 0}.task-card code,.reference code{background:#edf2f6;color:#185867;padding:2px 4px;border-radius:3px}.task-card button{width:100%;margin-top:8px}details{font-size:.9375rem;line-height:1.6}summary{cursor:pointer;font-weight:600}details p{color:#486174}.stretch{border-top:1px solid var(--line);padding-top:12px;margin-top:15px}.sidebar-note{font-size:.875rem;line-height:1.6;color:#486174;margin:16px 4px}.main-area{min-width:0}.flow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}.flow p{margin:0;font-size:.9375rem}.flow strong{color:#087364}.panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}.panel{background:white;border:1px solid #bacbd6;border-radius:10px;overflow:hidden;min-width:0;box-shadow:0 3px 8px #193e5310;display:flex;flex-direction:column}.panel-heading{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);min-height:62px;flex-wrap:wrap}.panel-heading h2{font-size:1rem;margin:0}.badge{font-size:.75rem;color:#446174;border:1px solid #cfdae2;border-radius:4px;padding:4px 6px;font-weight:normal}.edit-area{display:flex;flex-direction:column;flex:1;background:#f8fbfd}.code-wrap{display:flex;flex:1;min-height:470px;position:relative}.line-numbers{padding:18px 10px 18px 14px;font:var(--editor-size)/1.65 Consolas,'Courier New',monospace;background:#f0f5f8;color:#617587;text-align:right;overflow:hidden;white-space:pre;user-select:none;width:48px;flex-shrink:0;margin:0;border-right:1px solid #e0e8ee}.code{width:100%;resize:none;border:0;padding:18px 16px;background:#f8fbfd;color:#173f60;font:var(--editor-size)/1.65 Consolas,'Courier New',monospace;tab-size:2;white-space:pre;overflow:auto;min-width:0;min-height:470px}.code:focus-visible{outline-offset:-3px}.editor-footer{padding:9px 14px;border-top:1px solid var(--line);color:#526b7c;font-size:.75rem;line-height:1.5}.css-area{border-top:1px solid var(--line)}.css-area .panel-heading{min-height:44px;background:#eff5f7}.css-area textarea{min-height:150px;height:170px}.css-area[hidden]{display:none}.preview-heading{background:#f8fcfb}.preview-controls{display:flex;align-items:center;gap:8px}.preview-controls select{font-size:.875rem;border:1px solid var(--line);padding:6px;border-radius:5px;background:white;color:var(--ink);max-width:130px}.preview-stage{background:repeating-linear-gradient(45deg,#f0f4f6,#f0f4f6 6px,#e9eff2 6px,#e9eff2 7px);padding:0;flex:1;display:flex;justify-content:center;min-height:470px;overflow:hidden}iframe{background:white;border:0;width:100%;min-height:470px;transition:width .15s;display:block}.preview-stage.narrow{padding:12px} .preview-stage.narrow iframe{width:360px;max-width:100%;border:1px solid var(--line);border-radius:5px}.preview-footer{border-top:1px solid var(--line);padding:9px 14px;font-size:.75rem;line-height:1.5;color:#526b7c}.bottom-strip{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px;color:#486174;font-size:.875rem;line-height:1.6}.bottom-strip p{margin:0}.bottom-strip button{background:transparent}.reference{margin-top:18px;border:1px solid var(--line);border-radius:9px;background:white;padding:14px 18px}.tag-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.tag-item{border:1px solid #dce5ec;padding:13px;border-radius:6px;font-size:.875rem;line-height:1.6}.tag-item p{margin:5px 0}.tag-item code{display:block;overflow-wrap:anywhere}.tag-item button{margin-top:7px}.message{padding:12px 16px;background:#fff1d9;color:#6b3e00;border:1px solid #dfb96f;border-radius:6px;margin:0 0 12px;line-height:1.5}.message[hidden]{display:none}dialog{max-width:620px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:12px;padding:26px;color:var(--ink);line-height:1.65}dialog::backdrop{background:#102c4080}dialog h2{margin-top:0}dialog li{margin:9px 0}dialog .dialog-top{display:flex;justify-content:space-between;align-items:start;gap:16px}.mobile-tasks{display:none}.hidden-file{display:none}
+@media(min-width:1500px){.code-wrap,.code,.preview-stage,iframe{min-height:560px}}@media(max-width:1100px){.workspace{grid-template-columns:210px minmax(0,1fr);padding:18px;gap:14px}.panels{gap:10px}.toolbar{padding:12px 18px;gap:10px}header{padding:16px 18px}.tag-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{align-items:flex-start;flex-direction:column}}@media(max-width:850px){.workspace{grid-template-columns:1fr}.sidebar{display:none}.sidebar.open{display:block}.mobile-tasks{display:block}.lesson-nav{grid-template-columns:1fr 1fr}.task-card{margin-top:12px}.sidebar-note{display:none}.panels{grid-template-columns:1fr 1fr}.code-wrap,.code,.preview-stage,iframe{min-height:400px}.header-actions button{font-size:.875rem}.status{margin-right:0}}@media(max-width:620px){header{align-items:flex-start;flex-direction:column}.toolbar{gap:10px}.project{width:100%}.project input{flex:1;min-width:0}.status{width:100%}.workspace{padding:14px 10px}.panels{grid-template-columns:1fr}.code-wrap,.code{min-height:340px}.preview-stage,iframe{min-height:330px}.tag-grid{grid-template-columns:1fr}.flow p{line-height:1.6}.brand p{font-size:.875rem}.header-actions{width:100%}.header-actions button{flex:1}.panel-heading{padding:10px 12px}.bottom-strip{flex-direction:column}}
+.code-wrap{height:470px}.code-wrap .code{height:100%}.line-numbers{height:100%}
+@media(min-width:1500px){.code-wrap{height:560px}}@media(max-width:850px){.code-wrap{height:400px}}@media(max-width:620px){.code-wrap{height:340px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#html-code">Skip to HTML editor</a>
+<header><div class="brand"><span class="brand-mark" aria-hidden="true">&lt;/&gt;</span><div><h1>HTML Workshop</h1><p>Make a page. Make it yours.</p></div></div><div class="header-actions"><button id="new-btn">New page</button><button id="open-btn">Open file</button><button id="download-btn" class="primary">Download page</button></div></header>
+<div class="toolbar"><label class="project" for="project-name">Project <input id="project-name" maxlength="60" value="My first webpage" autocomplete="off"></label><span class="status" id="save-status" role="status">Ready to create</span><label class="option"><input id="show-css" type="checkbox">Show CSS</label><div class="size-controls"><span>Code size</span><button class="small" id="smaller" aria-label="Smaller code text">A−</button><button class="small" id="larger" aria-label="Larger code text">A+</button></div><button id="help-btn" class="small">How to use</button></div>
+<div class="workspace">
+<aside class="sidebar" id="tasks"><p class="eyebrow">TRY IT STEP BY STEP</p><nav class="lesson-nav" aria-label="Practice tasks"></nav><section class="task-card" aria-labelledby="task-title"><h2 id="task-title"></h2><p id="task-intro"></p><ol id="task-steps"></ol><details><summary>Need a hint?</summary><p id="task-hint"></p></details><div class="stretch"><strong>Finished? Try this</strong><p id="task-stretch"></p></div><button id="starter-btn">Load this starter</button></section><p class="sidebar-note">Choose a task or build your own idea. Selecting a task keeps your code.</p></aside>
+<main class="main-area"><div class="flow"><p><strong>1. Edit your HTML</strong> &nbsp; / &nbsp; <strong>2. See what changes</strong></p><button id="tasks-btn" class="small mobile-tasks" aria-expanded="false" aria-controls="tasks">Show practice tasks</button></div><div id="notice" class="message" role="status" hidden></div><div class="panels">
+<section class="panel" aria-labelledby="editor-title"><div class="panel-heading"><h2 id="editor-title">Your code <span class="badge">HTML</span></h2><button class="small" id="image-btn">Add image</button></div><div class="edit-area"><div class="code-wrap"><pre class="line-numbers" id="line-numbers" aria-hidden="true">1</pre><textarea id="html-code" class="code" aria-label="HTML code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea></div><section id="css-area" class="css-area" hidden><div class="panel-heading"><h2>Style your page <span class="badge">CSS</span></h2></div><textarea id="css-code" class="code" aria-label="CSS code" spellcheck="false" autocapitalize="off" wrap="off" placeholder="h1 {&#10;  color: teal;&#10;}"></textarea></section></div><div class="editor-footer">Use spaces to indent. Tab moves to the next control.</div></section>
+<section class="panel" aria-labelledby="preview-title"><div class="panel-heading preview-heading"><h2 id="preview-title">Your webpage</h2><div class="preview-controls"><label for="preview-width" class="badge">View</label><select id="preview-width"><option value="full">Full width</option><option value="phone">Phone width</option></select></div></div><div class="preview-stage" id="preview-stage"><iframe id="preview" title="Live preview of your webpage" sandbox="" referrerpolicy="no-referrer"></iframe></div><div class="preview-footer">Live preview · HTML &amp; CSS · Links and scripts are inactive here.</div></section>
+</div><div class="bottom-strip"><p>Your latest work stays in this browser when storage is available.<br><strong>Download your page before you finish.</strong></p><button class="small" id="refresh-btn">Refresh preview</button></div>
+<details class="reference" id="tag-guide"><summary>Tag guide — examples you can insert</summary><p>Place your cursor inside <code>&lt;body&gt;</code>, then choose an example.</p><div class="tag-grid" id="tag-grid"></div></details>
+</main></div>
+<input type="file" id="open-file" class="hidden-file" accept=".html,.htm,text/html"><input type="file" id="image-file" class="hidden-file" accept="image/png,image/jpeg,image/gif,image/webp">
+<dialog id="help"><div class="dialog-top"><h2>Welcome to your workshop</h2><button id="close-help" aria-label="Close help">Close</button></div><ol><li><strong>Type in Your code.</strong> Write the visible content between the opening <code>&lt;body&gt;</code> and closing <code>&lt;/body&gt;</code> tags.</li><li><strong>Watch Your webpage.</strong> The preview changes as you type.</li><li><strong>Try a task.</strong> Choose a practice task on the left. “Load this starter” replaces your code after you confirm.</li><li><strong>Add some style.</strong> Select “Show CSS” to try colours, fonts and spacing.</li><li><strong>Keep your work.</strong> “Download page” saves an HTML file. Use “Open file” to carry on next lesson. Download again after making more changes.</li></ol><p><strong>Images:</strong> “Add image” puts a copy inside your code, so it travels with the download. Change its <code>alt</code> text to describe it. Images must be PNG, JPEG, GIF or WebP and under 1 MB.</p><p><strong>On a shared computer:</strong> download first, then select “New page” to clear the saved project. Browser storage is not a school account or a backup.</p><p>Preview scripts, forms, embedded pages and link navigation are disabled. Downloaded pages are ordinary HTML files; only open files you trust. This editor has no sign-in, tracking or class submission system.</p></dialog>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = 'html-workshop-v1';
+const MAX_FILE = 2 * 1024 * 1024;
+const starter = (title, body) => `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>${title}</title>\n</head>\n<body>\n${body}\n</body>\n</html>`;
+const lessons = [
+ {name:'Your first page',title:'Make it about you',intro:'HTML gives a webpage its structure.',steps:['Change the heading to a topic you enjoy.','Write a sentence inside the paragraph.','Add a second paragraph below it.'],hint:'A paragraph starts with <p> and ends with </p>. Most HTML elements have an opening and a closing tag.',stretch:'Add an <h2> subheading and a paragraph about a different part of your topic.',html:starter('My first webpage','  <h1>My first webpage</h1>\n  <p>I am learning to write HTML.</p>'),css:''},
+ {name:'Lists & links',title:'Share your favourites',intro:'Group related items and link to another page.',steps:['Replace the list items with three things you like.','Add another <li> item inside the list.','Change the words between <a> and </a>.'],hint:'<ul> creates a bullet list. Each item goes inside <li> and </li>. In a link, href holds the web address.',stretch:'Add a numbered list using <ol>. Explain when a numbered list is more useful.',html:starter('My favourites','  <h1>My favourites</h1>\n  <ul>\n    <li>Reading</li>\n    <li>Football</li>\n    <li>Music</li>\n  </ul>\n  <p><a href="https://www.bbc.co.uk/bitesize">Explore BBC Bitesize</a></p>'),css:''},
+ {name:'Add an image',title:'Show your subject',intro:'Use a picture to support your writing.',steps:['Click inside <body>, then choose Add image.','Choose an image saved on your computer.','Replace "Describe this image" with useful alt text.'],hint:'An <img> tag uses src for the image and alt for a text description. It does not need a closing </img> tag.',stretch:'Add a paragraph as a caption. Explain what the picture adds to your page.',html:starter('My picture page','  <h1>My picture page</h1>\n  <!-- Insert your image below this line. -->\n  \n  <p>This picture is about...</p>'),css:''},
+ {name:'Style with CSS',title:'Give your page a style',intro:'HTML structures the content. CSS changes how it looks.',steps:['Select Show CSS to see the style rules.','Change the h1 colour from teal to purple.','Change the body background colour.'],hint:'In h1 { color: teal; }, h1 selects the heading. color is the property and teal is the value. Keep the colon and semicolon.',stretch:'Give paragraphs a different colour. Choose colours that are easy to read against your background.',html:starter('My styled page','  <h1>A page with personality</h1>\n  <p>HTML gives this page its structure.</p>\n  <p>CSS gives it a style.</p>'),css:'body {\n  font-family: Arial, sans-serif;\n  background-color: aliceblue;\n  padding: 24px;\n}\n\nh1 {\n  color: teal;\n}\n\np {\n  line-height: 1.6;\n}'}
+];
+const snippets = [
+ ['Main heading','The main heading for your page.','<h1>My heading</h1>'],
+ ['Paragraph','A block of writing.','<p>Write your sentence here.</p>'],
+ ['Subheading','A heading for a section.','<h2>My section</h2>'],
+ ['Bullet list','A list with one item per <li>.','<ul>\n  <li>First item</li>\n  <li>Second item</li>\n</ul>'],
+ ['Link','An address and clickable words.','<a href="https://www.bbc.co.uk/bitesize">BBC Bitesize</a>'],
+ ['Strong emphasis','Marks important text.','<strong>Important words</strong>']
+];
+let selectedLesson = 0, fontSize = 16, dirty = false, timer, loading = false;
+let lastSelection = {start:0,end:0};
+function notice(message) { $('notice').textContent = message; $('notice').hidden = !message; }
+function lines() { const n = $('html-code').value.split('\n').length; $('line-numbers').textContent = Array.from({length:n},(_,i)=>i+1).join('\n'); $('line-numbers').scrollTop = $('html-code').scrollTop; }
+function setCssVisibility(show) { $('show-css').checked=show; $('css-area').hidden=!show; }
+function projectData() { return {version:1,html:$('html-code').value,css:$('css-code').value,name:$('project-name').value,lesson:selectedLesson,showCss:$('show-css').checked,fontSize}; }
+function saveLocal() { try { localStorage.setItem(STORAGE_KEY,JSON.stringify(projectData())); $('save-status').textContent='Saved in this browser'; } catch { $('save-status').textContent='Download to save your work'; } }
+function buildPage(html,css) {
+  if (!css.trim()) return html;
+  const style = '\n<style data-html-workshop-css>\n'+css.replace(/<\/style/gi,'<\\/style')+'\n</style>\n';
+  // Append a marked style to the parsed head; keep HTML text unmodified where possible.
+  const headEnd = /<\/head\s*>/i.exec(html);
+  if(headEnd) return html.slice(0,headEnd.index)+style+html.slice(headEnd.index);
+  const bodyStart=/<body(?:\s[^>]*)?>/i.exec(html);
+  if(bodyStart) return html.slice(0,bodyStart.index)+style+html.slice(bodyStart.index);
+  return style+html;
+}
+function previewPage(html,css) {
+  const parsed = new DOMParser().parseFromString(buildPage(html,css),'text/html');
+  parsed.querySelectorAll('script,iframe,frame,frameset,object,embed,base,meta[http-equiv],link').forEach(el=>el.remove());
+  parsed.querySelectorAll('*').forEach(el=>{
+    Array.from(el.attributes).forEach(a=>{if(a.name.toLowerCase().startsWith('on')) el.removeAttribute(a.name);});
+    if(el.hasAttribute('href')) {el.removeAttribute('href');el.setAttribute('title','Links work in your downloaded page.');}
+    el.removeAttribute('action'); el.removeAttribute('formaction');
+  });
+  const security=parsed.createElement('meta'); security.setAttribute('http-equiv','Content-Security-Policy');
+  security.content="default-src 'none'; script-src 'none'; style-src 'unsafe-inline'; img-src data: https:; font-src data:; form-action 'none'; base-uri 'none'";
+  parsed.head.prepend(security);
+  return '<!DOCTYPE html>\n'+parsed.documentElement.outerHTML;
+}
+function render() { $('preview').srcdoc=previewPage($('html-code').value,$('css-code').value); }
+function changed() { dirty=true; clearTimeout(timer); lines(); $('save-status').textContent='Saving…'; timer=setTimeout(()=>{render();saveLocal();},350); }
+function selectLesson(index) {
+  selectedLesson=index; const lesson=lessons[index];
+  document.querySelectorAll('.lesson-button').forEach((btn,i)=>btn.setAttribute('aria-pressed',String(i===index)));
+  $('task-title').textContent=lesson.title; $('task-intro').textContent=lesson.intro;
+  $('task-steps').replaceChildren(...lesson.steps.map(step=>{const li=document.createElement('li');li.textContent=step;return li;}));
+  $('task-hint').textContent=lesson.hint; $('task-stretch').textContent=lesson.stretch;
+  if(!loading)saveLocal();
+}
+function applyProject(data) {
+  clearTimeout(timer); $('html-code').value=data.html; $('css-code').value=data.css||''; $('project-name').value=data.name||'My webpage';
+  setCssVisibility(!!data.showCss); fontSize=Math.max(14,Math.min(26,Number(data.fontSize)||16));
+  document.documentElement.style.setProperty('--editor-size',fontSize+'px');
+  $('smaller').disabled=fontSize<=14; $('larger').disabled=fontSize>=26;
+  loading=true;selectLesson(Number.isInteger(data.lesson)&&lessons[data.lesson]?data.lesson:0);loading=false;
+  const body=/<body(?:\s[^>]*)?>/i.exec(data.html); const position=body?body.index+body[0].length:data.html.length;
+  lastSelection={start:position,end:position}; $('html-code').setSelectionRange(position,position); lines();render();saveLocal();
+}
+function confirmReplace() { return confirm('Replace the current page? Download it first if you want to keep a copy.'); }
+function insertSnippet(code) {
+  const editor=$('html-code'); editor.focus(); editor.setSelectionRange(lastSelection.start,lastSelection.end);
+  editor.setRangeText('\n'+code+'\n',editor.selectionStart,editor.selectionEnd,'end');
+  lastSelection={start:editor.selectionStart,end:editor.selectionEnd};changed();
+}
+lessons.forEach((lesson,i)=>{const button=document.createElement('button');button.className='lesson-button';button.setAttribute('aria-pressed',String(i===0));const num=document.createElement('span');num.className='num';num.textContent=String(i+1).padStart(2,'0');button.append(num,document.createTextNode(lesson.name));button.addEventListener('click',()=>selectLesson(i));document.querySelector('.lesson-nav').append(button);});
+snippets.forEach(([name,description,code])=>{const item=document.createElement('div');item.className='tag-item';const title=document.createElement('strong');title.textContent=name;const p=document.createElement('p');p.textContent=description;const sample=document.createElement('code');sample.textContent=code;const button=document.createElement('button');button.className='small';button.textContent='Insert '+name.toLowerCase();button.addEventListener('click',()=>insertSnippet(code));item.append(title,p,sample,button);$('tag-grid').append(item);});
+$('html-code').addEventListener('input',changed); $('css-code').addEventListener('input',changed);
+['select','click','keyup','blur'].forEach(event=>$('html-code').addEventListener(event,()=>{lastSelection={start:$('html-code').selectionStart,end:$('html-code').selectionEnd};}));
+$('html-code').addEventListener('scroll',()=>{$('line-numbers').scrollTop=$('html-code').scrollTop;});
+$('project-name').addEventListener('input',()=>{dirty=true;saveLocal();});
+$('show-css').addEventListener('change',()=>{setCssVisibility($('show-css').checked);saveLocal();});
+$('preview-width').addEventListener('change',()=>{$('preview-stage').classList.toggle('narrow',$('preview-width').value==='phone');});
+$('refresh-btn').addEventListener('click',render);
+$('tasks-btn').addEventListener('click',()=>{const open=$('tasks').classList.toggle('open');$('tasks-btn').setAttribute('aria-expanded',String(open));$('tasks-btn').textContent=open?'Hide practice tasks':'Show practice tasks';});
+function adjustSize(amount) { fontSize=Math.max(14,Math.min(26,fontSize+amount));document.documentElement.style.setProperty('--editor-size',fontSize+'px');$('smaller').disabled=fontSize<=14;$('larger').disabled=fontSize>=26;saveLocal(); }
+$('smaller').addEventListener('click',()=>adjustSize(-2));$('larger').addEventListener('click',()=>adjustSize(2));
+$('starter-btn').addEventListener('click',()=>{if(!confirmReplace())return;const lesson=lessons[selectedLesson];applyProject({html:lesson.html,css:lesson.css,name:lesson.title,lesson:selectedLesson,showCss:!!lesson.css,fontSize});dirty=true;notice('Starter loaded. Make it your own.');});
+$('new-btn').addEventListener('click',()=>{if(!confirmReplace())return;applyProject({html:starter('My webpage','  <h1>My webpage</h1>\n  <p>Start writing here.</p>'),css:'',name:'My webpage',lesson:0,fontSize});dirty=false;notice('New page ready. The previous project has been removed from this browser’s saved slot.');});
+$('download-btn').addEventListener('click',()=>{
+ const html=buildPage($('html-code').value,$('css-code').value);const filename=($('project-name').value.trim().replace(/[^a-zA-Z0-9 _-]/g,'').trim().replace(/\s+/g,'-').slice(0,60)||'my-webpage')+'.html';
+ const url=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download=filename;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);dirty=false;notice('Download requested: '+filename+'. Keep this file to reopen next lesson.');
+});
+$('open-btn').addEventListener('click',()=>{$('open-file').value='';$('open-file').click();});
+$('open-file').addEventListener('change',async()=>{
+ const file=$('open-file').files[0];if(!file)return;
+ if(!/\.html?$/i.test(file.name)||file.size>MAX_FILE){notice('Choose an HTML file (.html or .htm) smaller than 2 MB.');return;}
+ if(!confirmReplace())return;
+ try {let html=await file.text();let css='';html=html.replace(/<style\b[^>]*\bdata-html-workshop-css(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?[^>]*>([\s\S]*?)<\/style\s*>/gi,(_,style)=>{css+=style.trim()+'\n';return '';});
+ applyProject({html,css,name:file.name.replace(/\.html?$/i,''),lesson:selectedLesson,showCss:!!css,fontSize});dirty=false;notice('Opened '+file.name+'. Changes are saved in this browser; download a new copy when you finish.');
+ }catch{notice('That file could not be opened. Please try again.');}
+});
+$('image-btn').addEventListener('click',()=>{$('image-file').value='';$('image-file').click();});
+$('image-file').addEventListener('change',()=>{
+ const file=$('image-file').files[0];if(!file)return;
+ if(!['image/png','image/jpeg','image/gif','image/webp'].includes(file.type)||file.size>1024*1024){notice('Choose a PNG, JPEG, GIF or WebP image smaller than 1 MB.');return;}
+ if($('html-code').value.length+Math.ceil(file.size*4/3)>MAX_FILE){notice('This image would make the page too large to reopen here. Choose a smaller image.');return;}
+ const reader=new FileReader();reader.onload=()=>{insertSnippet('<img src="'+reader.result+'" alt="Describe this image" width="300">');notice('Image added. Change the alt text to describe your image. The long src value stores your picture inside the page.');};reader.onerror=()=>notice('The image could not be read. Try another file.');reader.readAsDataURL(file);
+});
+$('help-btn').addEventListener('click',()=>{$('help').showModal();});$('close-help').addEventListener('click',()=>{$('help').close();});
+window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
+document.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='s'){event.preventDefault();$('download-btn').click();}});
+let saved;
+try {const candidate=JSON.parse(localStorage.getItem(STORAGE_KEY));if(candidate&&candidate.version===1&&typeof candidate.html==='string'&&typeof candidate.css==='string'&&typeof candidate.name==='string'&&candidate.html.length+candidate.css.length<MAX_FILE*2)saved=candidate;}catch{}
+applyProject(saved||{html:lessons[0].html,css:'',name:'My first webpage',lesson:0});
+if(saved)notice('Your previous page was restored from this browser. On a shared computer, choose New page to start your own work.');
+if(document.modelContext?.registerTool){try{Promise.resolve(document.modelContext.registerTool({name:'read_workshop_project',title:'Read current HTML project',description:'Read the current HTML, CSS and selected practice task without changing student work.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},execute(input){if(!input||typeof input!=='object'||Object.keys(input).length)throw new Error('Expected an empty object');return projectData();}})).catch(()=>{});}catch{}}
+</script>
+</body>
+</html>
